@@ -18,16 +18,17 @@ app.get("/subscribers/names",async(req,res)=>{
  });
 
 
- app.get("/subscribers/:id",async(req,res)=>{
-    const id = req.params.id;
-    const user = await susbcriberSchema.find({_id:id});
-    if(user[0]) {
-        res.send(user[0]);
-    }else{
-        res.status(400).send({message: "error.message"});
-    }
-   
- });
+
+app.get("/subscribers/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const result = await susbcriberSchema.findOne({ _id: id });
+    res.json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+
+});
 
 // Your code goes here
 
